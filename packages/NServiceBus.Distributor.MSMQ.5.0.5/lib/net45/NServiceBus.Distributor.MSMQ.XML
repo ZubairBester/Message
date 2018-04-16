@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.Distributor.MSMQ</name>
+    </assembly>
+    <members>
+        <member name="T:NServiceBus.ConfigureMSMQDistributor">
+            <summary>
+            Extension methods to configure Distributor.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ConfigureMSMQDistributor.AsMSMQMasterNode(NServiceBus.BusConfiguration)">
+            <summary>
+            Configure this endpoint as both a Distributor and a Worker.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.ConfigureMSMQDistributor.RunMSMQDistributor(NServiceBus.BusConfiguration,System.Boolean)">
+            <summary>
+                Configure the distributor to run on this endpoint
+            </summary>
+            <param name="config"></param>
+            <param name="withWorker"><value>true</value> if this endpoint should enlist as a worker, otherwise <value>false</value>. Default is <value>true</value>.</param>
+        </member>
+        <member name="M:NServiceBus.ConfigureMSMQDistributor.EnlistWithMSMQDistributor(NServiceBus.BusConfiguration)">
+            <summary>
+                Enlist Worker with Master node defined in the config.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.Distributor">
+            <summary>
+            Distributor
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.Distributor.Setup(NServiceBus.Features.FeatureConfigurationContext)">
+            <summary>
+            Called when the features is activated
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.WorkerNode">
+            <summary>
+            Worker
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.WorkerNode.Setup(NServiceBus.Features.FeatureConfigurationContext)">
+            <summary>
+            Called when the features is activated
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor">
+            <summary>
+                Part of the Distributor infrastructure.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor.Handle(NServiceBus.TransportMessage)">
+            <summary>
+                This method is called when a message is available to be processed.
+            </summary>
+            <param name="message">
+                The <see cref="T:NServiceBus.TransportMessage" /> received.
+            </param>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor.InputAddress">
+            <summary>
+                The <see cref="T:NServiceBus.Address" /> for this <see cref="T:NServiceBus.Satellites.ISatellite" /> to use when receiving messages.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor.Disabled">
+            <summary>
+                Set to <code>true</code> to disable this <see cref="T:NServiceBus.Satellites.ISatellite" />.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor.Start">
+            <summary>
+                Starts the <see cref="T:NServiceBus.Satellites.ISatellite" />.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorReadyMessageProcessor.Stop">
+            <summary>
+                Stops the <see cref="T:NServiceBus.Satellites.ISatellite" />.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.DistributorSatellite">
+            <summary>
+                Provides functionality for distributing messages from a bus
+                to multiple workers when using a unicast transport.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.DistributorSatellite.InputAddress">
+            <summary>
+                The <see cref="F:NServiceBus.Distributor.MSMQ.DistributorSatellite.address" /> for this <see cref="T:NServiceBus.Satellites.ISatellite" /> to use when receiving messages.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.DistributorSatellite.Disabled">
+            <summary>
+                Set to <code>true</code> to disable this <see cref="T:NServiceBus.Satellites.ISatellite" />.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorSatellite.Start">
+            <summary>
+                Starts the Distributor.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorSatellite.Stop">
+            <summary>
+                Stops the Distributor.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.DistributorSatellite.Handle(NServiceBus.TransportMessage)">
+            <summary>
+                This method is called when a message is available to be processed.
+            </summary>
+            <param name="message">The <see cref="T:NServiceBus.TransportMessage" /> received.</param>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager">
+            <summary>
+                Defines a manager class that determines the availability
+                of a worker for the <see cref="T:NServiceBus.Distributor.MSMQ.DistributorSatellite" />.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager.WorkerAvailable(NServiceBus.Distributor.MSMQ.Worker)">
+            <summary>
+                Signal that a worker is available to receive a dispatched message.
+            </summary>
+            <param name="worker">The worker details.</param>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager.RegisterNewWorker(NServiceBus.Distributor.MSMQ.Worker,System.Int32)">
+            <summary>
+                Registers a new worker with <see cref="T:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager" />.
+            </summary>
+            <param name="worker">The worker details.</param>
+            <param name="capacity">The number of messages that this worker is ready to process.</param>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager.UnregisterWorker(NServiceBus.Address)">
+            <summary>
+                Unregisters the worker from the <see cref="T:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager" />.
+            </summary>
+            <param name="address"><see cref="T:NServiceBus.Address" /> of worker to unregister.</param>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager.NextAvailableWorker">
+            <summary>
+                Retrieves the next available worker from the available worker list.
+            </summary>
+            <returns>The <see cref="T:NServiceBus.Distributor.MSMQ.Worker" /> details, or
+                <value>null</value>
+                if no worker is available.
+            </returns>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.MsmqUtilities">
+            <summary>
+                MSMQ-related utility functions
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.MsmqUtilities.GetFullPath(NServiceBus.Address)">
+            <summary>
+                Turns a '@' separated value into a full path.
+                Format is 'queue@machine', or 'queue@ipaddress'
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.MsmqWorkerAvailabilityManager">
+            <summary>
+                An implementation of <see cref="T:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager" /> for MSMQ to be used
+                with the <see cref="T:NServiceBus.Distributor.MSMQ.DistributorSatellite" /> class.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.MsmqWorkerAvailabilityManager.NextAvailableWorker">
+            <summary>
+                Pops the next available worker from the available worker queue
+                and returns its address.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.QueueCreators.DistributorStorageQueueCreator">
+            <summary>
+                Signal to create the queue to store worker availability information.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.QueueCreators.DistributorStorageQueueCreator.#ctor(NServiceBus.Configure,NServiceBus.ObjectBuilder.IConfigureComponents)">
+            <summary>
+                Holds storage queue address.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.QueueCreators.DistributorStorageQueueCreator.Address">
+            <summary>
+                Address of Distributor storage queue.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.QueueCreators.WorkerQueueCreator">
+            <summary>
+                Signal to create the queue for the worker
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.QueueCreators.WorkerQueueCreator.Address">
+            <summary>
+                Address of worker queue
+            </summary>
+        </member>
+        <member name="T:NServiceBus.Distributor.MSMQ.Worker">
+            <summary>
+                Worker details class, to be used with <see cref="T:NServiceBus.Distributor.MSMQ.IWorkerAvailabilityManager" />.
+            </summary>
+        </member>
+        <member name="M:NServiceBus.Distributor.MSMQ.Worker.#ctor(NServiceBus.Address,System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:NServiceBus.Distributor.MSMQ.Worker" /> class.
+            </summary>
+            <param name="address">The <see cref="P:NServiceBus.Distributor.MSMQ.Worker.Address" /> of the worker that will accept the dispatched message.</param>
+            <param name="sessionId">The current worker sessionId.</param>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.Worker.Address">
+            <summary>
+                The <see cref="P:NServiceBus.Distributor.MSMQ.Worker.Address" /> of the worker that will accept the dispatched message.
+            </summary>
+        </member>
+        <member name="P:NServiceBus.Distributor.MSMQ.Worker.SessionId">
+            <summary>
+                The worker current sessionId.
+            </summary>
+        </member>
+    </members>
+</doc>

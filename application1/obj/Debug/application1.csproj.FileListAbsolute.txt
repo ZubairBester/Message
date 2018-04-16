@@ -1,0 +1,10 @@
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\application1.exe.config
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\application1.exe
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\application1.pdb
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\DotNetMQ.MDSCommonLib.dll
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\log4net.dll
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\DotNetMQ.MDSCommonLib.xml
+C:\Users\Zubair\source\repos\application1\application1\bin\Debug\log4net.xml
+C:\Users\Zubair\source\repos\application1\application1\obj\Debug\application1.csproj.CoreCompileInputs.cache
+C:\Users\Zubair\source\repos\application1\application1\obj\Debug\application1.exe
+C:\Users\Zubair\source\repos\application1\application1\obj\Debug\application1.pdb
